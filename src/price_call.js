@@ -1,5 +1,4 @@
 exports.price_call = function(){
-  var async = require('async');
 
   //独自ライブラリの呼び出し
   var jsonUtil = require('./json_util.js')
