@@ -9,21 +9,21 @@ exports.price_call = function(){
   var json = new jsonUtil.JsonUtil('config.json');
   var param = json.get_param();
   var slack_param = json.get_slack();
+  var stock = json.get_stock();
+  var companies = stock.companies;
 
   //Slackコールの呼び出し
   var slack = require('./slack.js');
   var slack = new slack.Slack( slack_param.url );
 
-
   //定期実行
   setInterval(function(){
-    var company = "KDDI";
-    var getVal = function( result ){
-      console.log( "getval" );
-      var message = sp.slack_formatting( result );
-      slack.say_message( message );
-    }
-
-    var message = sp.getNowprice( company , getVal );
+    companies.forEach( function( company ){
+      var getVal = function( result ){
+        var message = sp.slack_formatting( result );
+        slack.say_message( message );
+      }
+      var message = sp.getNowprice( company.name , getVal );
+    });
   } , param.second * 1000);
 }
