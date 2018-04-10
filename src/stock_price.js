@@ -1,6 +1,6 @@
 
 var cheerioClient = require('cheerio-httpcli');
-
+var async = require('async');
 /*
  *検索をかける
  */
@@ -27,8 +27,9 @@ var searchClearly = function( url, request, clearly ){
 /*
  * 会社名から株価を取得
  */
-var getNowprice = function( company ){
+exports.getNowprice = function( company , callback ){
   var request = { q: company + " 株価" };
+  var result = '';
   searchClearly( "http://www.google.com/search", request, function( $ ){
     var target = $("div[id='fac-ut']");
     // 要素を取得
@@ -36,15 +37,22 @@ var getNowprice = function( company ){
     var stock_price = target.find("span[ class='W0pUAc fmob_pr fac-l']");
     var table = target.find("table[class='ts']").eq();
 
-    var result = {
+    result = {
+      name: company,
       stock_price: stock_price.text(),
       change_amount: change_amount.text()
     }
-
-    console.log(result);
-    return result;
+    callback( result );
   });
 };
 
 
-var price = getNowprice( "ヤフー" );
+exports.slack_formatting = function( text ) {
+  var formatted_text ="";
+
+  formatted_text +=
+  ">*" + text.company + "*  の現在の株価\n" +
+  ">" + text.stock_price + "円\n";
+
+  return formatted_text;
+};
