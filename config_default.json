@@ -1,4 +1,18 @@
 {
-    "id":"ユーザid",
-    "pass":"パスワード"
+  "slack":{
+    "url" : "",
+    "interval": 10
+  },
+  "stock":{
+    "url":"https://www.google.co.jp/",
+    "companies":[
+      {"name" :"会社名"},
+      {"name":"会社名"}
+    ]
+  },
+  "param":{
+      "threshold": 0.05 ,
+      "size":12,
+      "second":720
+  }
 }
