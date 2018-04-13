@@ -16,13 +16,11 @@ exports.price_call = function(){
   var slack = new slack.Slack( slack_param.url );
 
   //定期実行
-  setInterval(function(){
-    companies.forEach( function( company ){
-      var getVal = function( result ){
-        var message = sp.slack_formatting( result );
-        slack.say_message( message );
-      }
-      var message = sp.getNowprice( company.name , getVal );
-    });
-  } , param.second * 1000);
+  companies.forEach( function( company ){
+    var getVal = function( result ){
+      var message = sp.slack_formatting( result );
+      slack.say_message( message );
+    }
+    var message = sp.getNowprice( company.name , getVal );
+  });
 }
