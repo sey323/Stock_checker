@@ -1,0 +1,18 @@
+{
+  "slack":{
+    "url" : "https://hooks.slack.com/services/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",
+    "interval": 10
+  },
+  "stock":{
+    "url":"https://www.google.co.jp/",
+    "companies":[
+      {"name" :"KDDI"},
+      {"name":"ヤフー"}
+    ]
+  },
+  "param":{
+      "threshold": 0.05 ,
+      "size":12,
+      "second":720
+  }
+}
