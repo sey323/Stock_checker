@@ -53,8 +53,9 @@ exports.slack_formatting = function( text ) {
   var formatted_text ="";
 
   formatted_text +=
-  ">*" + text.name + "*  の現在の株価\n" +
-  ">" + text.stock_price + "円\n";
+  ">`" + text.name + "` の現在の株価\n" +
+  ">*" + text.stock_price + "* 円\n"+
+  ">" + "_変化量:" + text.change_amount + "_";
 
   return formatted_text;
 };

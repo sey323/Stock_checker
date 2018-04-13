@@ -16,18 +16,26 @@ exports.price_call = function(){
   var slack = new slack.Slack( slack_param.url );
 
   var duration = 25200; //7時間
+  var duration = 9; //test
   var max_count = duration / param.second;
+  var count = 0;
 
   //定期実行
-  for ( var i = 0; i < max_count; i++){
-    setInterval(function(){
-      companies.forEach( function( company ){
-        var getVal = function( result ){
-          var message = sp.slack_formatting( result );
-          slack.say_message( message );
-        }
-        var message = sp.getNowprice( company.name , getVal );
-      });
-    } , param.second * 1000);
-  }
+  setInterval(function(){
+    // 今日の取引分終えたら終了．
+    count ++;
+    if( count > max_count ){
+      slack.say_message( "Today trade is finished" );
+      process.exit(0);
+    }
+
+    // 会社の数だけ繰り返す．
+    companies.forEach( function( company ){
+      var getVal = function( result ){
+        var message = sp.slack_formatting( result );
+        slack.say_message( message );
+      }
+      var message = sp.getNowprice( company.name , getVal );
+    });
+  } , param.second * 1000);
 }

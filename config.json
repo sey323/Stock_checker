@@ -13,6 +13,6 @@
   "param":{
       "threshold": 0.05 ,
       "size":12,
-      "second":900
+      "second":3
   }
 }
