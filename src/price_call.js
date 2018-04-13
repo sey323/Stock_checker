@@ -15,14 +15,19 @@ exports.price_call = function(){
   var slack = require('./slack.js');
   var slack = new slack.Slack( slack_param.url );
 
+  var duration = 25200; //7時間
+  var max_count = duration / param.second;
+
   //定期実行
-  setInterval(function(){
-    companies.forEach( function( company ){
-      var getVal = function( result ){
-        var message = sp.slack_formatting( result );
-        slack.say_message( message );
-      }
-      var message = sp.getNowprice( company.name , getVal );
-    });
-  } , param.second * 1000);
+  for ( var i = 0; i < max_count; i++){
+    setInterval(function(){
+      companies.forEach( function( company ){
+        var getVal = function( result ){
+          var message = sp.slack_formatting( result );
+          slack.say_message( message );
+        }
+        var message = sp.getNowprice( company.name , getVal );
+      });
+    } , param.second * 1000);
+  }
 }
