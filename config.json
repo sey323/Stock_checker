@@ -1,6 +1,6 @@
 {
   "slack":{
-    "url" : "https://hooks.slack.com/services/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",
+    "token" : "xoxb-304553866372-WJ0MDHqTwitPeYxronIK46e6",
     "interval": 10
   },
   "stock":{

@@ -12,7 +12,7 @@ exports.price_call = function( companies ){
 
   //Slackコールの呼び出し
   var slack = require('./slack.js');
-  var slack = new slack.Slack( slack_param.url );
+  var slack = new slack.Slack( slack_param.token );
 
   // 会社の数だけ繰り返す．
   companies.forEach( function( company ){

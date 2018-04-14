@@ -5,7 +5,8 @@ var pc = require('./src/price_call.js');
 var jsonUtil = require('./src/json_util.js')
 
 new CronJob({
-    cronTime:'00,40,30 8-16 * * 0-7',
+    cronTime: '* * * * *',
+    //cronTime:'00,40,30 8-16 * * 0-7',
     onTick: function() {
       var json = new jsonUtil.JsonUtil('config.json');
       var stock = json.get_stock();
