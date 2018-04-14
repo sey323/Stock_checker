@@ -5,7 +5,7 @@ exports.JsonUtil = function( file_name ){
     this.file_name = file_name
     this.json = JSON.parse(fs.readFileSync(file_name , 'utf8') )
 
-    //パラメータを取得
+    //実行パラメータを取得
     this.get_param = function(){
         var data = this.json.param;
         return data;

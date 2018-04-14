@@ -20,4 +20,4 @@ RUN npm install
 RUN npm install -g cron
 
 # cronの実行
-# CMD cron && touch /etc/cron.d/stock_cron && tail -f /dev/null
+CMD node main.js

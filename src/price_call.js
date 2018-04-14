@@ -9,7 +9,6 @@ exports.price_call = function( companies ){
   var param = json.get_param();
   var slack_param = json.get_slack();
 
-
   //Slackコールの呼び出し
   var slack = require('./slack.js');
   var slack = new slack.Slack( slack_param.token );

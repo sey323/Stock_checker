@@ -1,13 +1,13 @@
 
 //slackモジュール
 exports.Slack = function( token ){
-  var request = require('request');
   var Botkit = require('botkit');
 
   const controller = Botkit.slackbot({
     debug: false
   });
 
+  // 初期化
   controller.spawn({
       token: token
   }).startRTM(function(err){
@@ -20,7 +20,7 @@ exports.Slack = function( token ){
     controller.spawn({
       token: token
     }).startRTM(function(err, bot, payload) {
-      // Add --
+      // チャンネル等を指定
       bot.say({
         channel: 'virtual-currency',
         text: message,
