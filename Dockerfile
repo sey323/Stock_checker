@@ -17,6 +17,7 @@ WORKDIR /home/$APP_NAME
 ADD ./ /home/$APP_NAME
 
 RUN npm install
+RUN npm install -g cron
 
 # cronの実行
 # CMD cron && touch /etc/cron.d/stock_cron && tail -f /dev/null
