@@ -16,6 +16,12 @@ exports.Slack = function( token ){
       }
   });
 
+  controller.hears('(.*)',['direct_message','direct_mention','mention'],function(bot,message) {
+    var pc = require('./price_call.js');
+    console.log( message );
+    pc.price_call( message.text );
+  });
+
   this.say_message = function( message ){
     controller.spawn({
       token: token
