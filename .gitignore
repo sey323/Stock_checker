@@ -18,5 +18,5 @@ node_modules
 npm-debug.log
 
 # 設定ファイル
-# config.json
+config.json
 *.png

@@ -1,29 +1,32 @@
 
 //slackモジュール
-exports.Slack = function( url ){
-    var request = require('request');
+exports.Slack = function( token ){
+  var Botkit = require('botkit');
 
+  const controller = Botkit.slackbot({
+    debug: false
+  });
 
-    this.say_message = function( message ){
-        var payload = JSON.stringify({
-            "text": message,
-            "username": "Rocket",
-            "icon_url": "",
-            "channel": "#virtual-currency"
-        });
+  // 初期化
+  controller.spawn({
+      token: token
+  }).startRTM(function(err){
+      if (err) {
+          throw new Error(err);
+      }
+  });
 
-        var options = {
-            url: url,
-            form: 'payload=' + payload,
-            json: true
-        };
-
-        request.post(options, function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body);
-            } else {
-                console.log('error: ' + response.statusCode + body);
-            }
-        });
-    }
+  this.say_message = function( message ){
+    controller.spawn({
+      token: token
+    }).startRTM(function(err, bot, payload) {
+      // チャンネル等を指定
+      bot.say({
+        channel: 'virtual-currency',
+        text: message,
+        username: 'rocket'
+      });
+      // --
+    });
+  }
 }
