@@ -51,6 +51,9 @@ exports.getNowprice = function( company , callback ){
 exports.slack_formatting = function( text ) {
   var formatted_text ="";
 
+  if( !text.name ){ // データがない時の例外処理
+    return null
+  }
   formatted_text +=
   ">`" + text.name + "` の現在の株価\n" +
   ">*" + text.stock_price + "* 円\n"+

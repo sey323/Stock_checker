@@ -16,15 +16,23 @@ exports.Slack = function( token ){
       }
   });
 
-  controller.hears('(.*)',['direct_message','direct_mention','mention'],function(bot,message) {
+  controller.hears('(.*)',['direct_message'],function( bot , message) {
+    bot.reply( message , message.text + 'の株価を検索してるぜ！' );
+
     var sp = require('./stock_price');
-    var getVal = function( result ){
-      var value = sp.slack_formatting( result );
-      bot.leply( message , value );
+    var getVal = function( company ){
+      var value = sp.slack_formatting( company );
+      // 存在しない企業の時
+      if( value == null ){
+        bot.reply( message , 'そんな企業ないぞ' );
+      }else{
+        bot.reply( message , value );
+      }
     }
-    var message = sp.getNowprice( company.name , getVal );
+    var tmp = sp.getNowprice( message.text , getVal );
   });
 
+  // チャンネルに定期発信
   this.say_message = function( message ){
     controller.spawn({
       token: token
