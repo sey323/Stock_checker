@@ -29,14 +29,14 @@ var searchClearly = function( url, request, clearly ){
 exports.getNowprice = function( company , callback ){
   var request = { q: company + " 株価" };
   var result = '';
-  searchClearly( "http://www.google.com/search", request, function( $ ){
-    var target = $("div[id='fac-ut']");
-    // 要素を取得
-    var name = target.find("div[ class = 'vk_gy spEdqf vk_h' ]");
-    var change_amount = target.find("span[ class='fac-cc']");
-    var stock_price = target.find("span[ class='W0pUAc fmob_pr fac-l']");
-    var table = target.find("table[class='ts']").eq();
 
+  searchClearly( "http://www.google.com/search", request, function( $ ){
+    var target = $('#knowledge-finance-wholepage__entity-summary > div > g-card-section > div > g-card-section');
+    // 要素の取得
+    var name = target.find("div:nth-child(1) > div:nth-child(1)");
+    var change_amount = target.find('div:nth-child(2) > span:nth-child(2) > span:nth-child(1)');
+    var stock_price = target.find('div:nth-child(2) > span:nth-child(1) > span > span:nth-child(1)');
+    var table = target.find("table[class='ts']").eq();
     result = {
       name: name.text(),
       stock_price: stock_price.text(),
@@ -45,7 +45,6 @@ exports.getNowprice = function( company , callback ){
     callback( result );
   });
 };
-
 /*
  *slackの出力用に修正
  */

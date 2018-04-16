@@ -17,9 +17,12 @@ exports.Slack = function( token ){
   });
 
   controller.hears('(.*)',['direct_message','direct_mention','mention'],function(bot,message) {
-    var pc = require('./price_call.js');
-    console.log( message );
-    pc.price_call( message.text );
+    var sp = require('./stock_price');
+    var getVal = function( result ){
+      var value = sp.slack_formatting( result );
+      bot.leply( message , value );
+    }
+    var message = sp.getNowprice( company.name , getVal );
   });
 
   this.say_message = function( message ){
