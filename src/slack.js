@@ -48,7 +48,7 @@ exports.Slack = function(){
   controller.hears('(.*)',['direct_message'],function( bot , message) {
     var sp = require('./stock_price');
     bot.reply( message , message.text + 'の株価を検索してるぜ！' );
-    
+
     var getVal = function( company ){
       var value = sp.slack_formatting( company );
       // 存在しない企業の時
