@@ -47,8 +47,9 @@ exports.Slack = function(){
   // 会社の名前を入力したら，その株価を返信
   controller.hears('(.*)',['direct_message'],function( bot , message) {
     var sp = require('./stock_price');
+    bot.reply( message , message.text + 'の株価を検索してるぜ！' );
+    
     var getVal = function( company ){
-      bot.reply( message , message.text + 'の株価を検索してるぜ！' );
       var value = sp.slack_formatting( company );
       // 存在しない企業の時
       if( value == null ){
@@ -57,5 +58,6 @@ exports.Slack = function(){
         bot.reply( message , value );
       }
     }
+    var tmp = sp.getNowprice( message.text , getVal );
   });
 }
