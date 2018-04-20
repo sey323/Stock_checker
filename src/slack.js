@@ -23,17 +23,15 @@ exports.Slack = function(){
     token: slack_param.token
   }).startRTM(function(err, bot, payload) {
     new CronJob({
-      //cronTime: '* * * * *',
       cronTime:'*/15 8-16 * * 1-6',
       onTick: function() {
-
         // 会社の数だけ繰り返す．
         companies.forEach( function( company ){
           var getVal = function( result ){
             var message = sp.slack_formatting( result );
             bot.say( {
               text:message,
-              channel: 'virtual-currency'
+              channel: slack_param.channel
             } );
           }
           var message = sp.getNowprice( company.name , getVal );
@@ -46,6 +44,7 @@ exports.Slack = function(){
 
   // 会社の名前を入力したら，その株価を返信
   controller.hears('(.*)',['direct_message'],function( bot , message) {
+    console.log(message);
     var sp = require('./stock_price');
     var getVal = function( company ){
       bot.reply( message , message.text + 'の株価を検索してるぜ！' );
