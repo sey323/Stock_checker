@@ -56,5 +56,6 @@ exports.Slack = function(){
         bot.reply( message , value );
       }
     }
+    var tmp = getVal( message , getVal );
   });
 }
