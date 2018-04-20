@@ -24,7 +24,7 @@ exports.Slack = function(){
   }).startRTM(function(err, bot, payload) {
     new CronJob({
       //cronTime: '* * * * *',
-      cronTime:'00,30 8-16 * * 0-7',
+      cronTime:'*/15 8-16 * * 1-6',
       onTick: function() {
 
         // 会社の数だけ繰り返す．
